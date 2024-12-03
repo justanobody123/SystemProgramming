@@ -148,6 +148,7 @@
             listViewGroup3});
 			this.listViewProcesses.HideSelection = false;
 			this.listViewProcesses.Location = new System.Drawing.Point(9, 7);
+			this.listViewProcesses.MultiSelect = false;
 			this.listViewProcesses.Name = "listViewProcesses";
 			this.listViewProcesses.Size = new System.Drawing.Size(780, 364);
 			this.listViewProcesses.TabIndex = 0;
