@@ -107,5 +107,21 @@ namespace TaskManager2
 			SetRefreshRateRadioButton(sender);
 			timer.Interval = 3000;
 		}
+
+		private void MainForm_Resize(object sender, EventArgs e)
+		{
+			if (WindowState == FormWindowState.Minimized)
+			{
+				notifyIcon.Visible = true;
+				Hide();
+			}
+		}
+
+		private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			Show();
+			WindowState = FormWindowState.Normal;
+			notifyIcon.Visible = false;
+		}
 	}
 }
