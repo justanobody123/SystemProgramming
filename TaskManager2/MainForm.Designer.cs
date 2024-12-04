@@ -54,6 +54,10 @@
 			this.listViewProcesses = new System.Windows.Forms.ListView();
 			this.columnHeaderPID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.contextMenuProcList = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.ToolStripMenuItemOpenFileLocation = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripMenuItemDestroy = new System.Windows.Forms.ToolStripMenuItem();
 			this.tabPagePerformance = new System.Windows.Forms.TabPage();
 			this.timer = new System.Windows.Forms.Timer(this.components);
 			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -61,6 +65,7 @@
 			this.statusStripMain.SuspendLayout();
 			this.tabControl.SuspendLayout();
 			this.tabPageProcesses.SuspendLayout();
+			this.contextMenuProcList.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// mainMenu
@@ -243,6 +248,7 @@
 			this.listViewProcesses.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderPID,
             this.columnHeaderName});
+			this.listViewProcesses.ContextMenuStrip = this.contextMenuProcList;
 			this.listViewProcesses.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.listViewProcesses.FullRowSelect = true;
 			this.listViewProcesses.GridLines = true;
@@ -263,6 +269,35 @@
 			// 
 			this.columnHeaderName.Text = "Name";
 			this.columnHeaderName.Width = 120;
+			// 
+			// contextMenuProcList
+			// 
+			this.contextMenuProcList.ImageScalingSize = new System.Drawing.Size(20, 20);
+			this.contextMenuProcList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItemOpenFileLocation,
+            this.toolStripSeparator4,
+            this.toolStripMenuItemDestroy});
+			this.contextMenuProcList.Name = "contextMenuProcList";
+			this.contextMenuProcList.Size = new System.Drawing.Size(211, 86);
+			this.contextMenuProcList.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuProcList_Opening);
+			// 
+			// ToolStripMenuItemOpenFileLocation
+			// 
+			this.ToolStripMenuItemOpenFileLocation.Name = "ToolStripMenuItemOpenFileLocation";
+			this.ToolStripMenuItemOpenFileLocation.Size = new System.Drawing.Size(210, 24);
+			this.ToolStripMenuItemOpenFileLocation.Text = "Open file location";
+			// 
+			// toolStripSeparator4
+			// 
+			this.toolStripSeparator4.Name = "toolStripSeparator4";
+			this.toolStripSeparator4.Size = new System.Drawing.Size(207, 6);
+			// 
+			// toolStripMenuItemDestroy
+			// 
+			this.toolStripMenuItemDestroy.Name = "toolStripMenuItemDestroy";
+			this.toolStripMenuItemDestroy.Size = new System.Drawing.Size(210, 24);
+			this.toolStripMenuItemDestroy.Text = "Destroy";
+			this.toolStripMenuItemDestroy.Click += new System.EventHandler(this.destroyToolStripMenuItem_Click);
 			// 
 			// tabPagePerformance
 			// 
@@ -304,6 +339,7 @@
 			this.statusStripMain.PerformLayout();
 			this.tabControl.ResumeLayout(false);
 			this.tabPageProcesses.ResumeLayout(false);
+			this.contextMenuProcList.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -338,6 +374,10 @@
 		private System.Windows.Forms.ColumnHeader columnHeaderPID;
 		private System.Windows.Forms.NotifyIcon notifyIcon;
 		private System.Windows.Forms.ToolStripMenuItem mainMenuViewColumnsCPU;
+		private System.Windows.Forms.ContextMenuStrip contextMenuProcList;
+		private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemOpenFileLocation;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDestroy;
 	}
 }
 
