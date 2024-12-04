@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace TaskManager2
 {
@@ -21,13 +22,13 @@ namespace TaskManager2
 			switch (timer.Interval)
 			{
 				case 1000:
-					MainMenuViewRefreshRateHigh.Checked = true;
+					mainMenuViewRefreshRateHigh.Checked = true;
 					break;
 				case 2000:
-					MainMenuViewRefreshRateNormal.Checked = true;
+					mainMenuViewRefreshRateNormal.Checked = true;
 					break;
 				case 3000:
-					MainMenuViewRefreshRateLow.Checked = true;
+					mainMenuViewRefreshRateLow.Checked = true;
 					break;
 			}
 		}
@@ -84,9 +85,9 @@ namespace TaskManager2
 		}
 		void SetRefreshRateRadioButton(object sender)
 		{
-			MainMenuViewRefreshRateHigh.Checked = false;
-			MainMenuViewRefreshRateLow.Checked = false;
-			MainMenuViewRefreshRateNormal.Checked = false;
+			mainMenuViewRefreshRateHigh.Checked = false;
+			mainMenuViewRefreshRateLow.Checked = false;
+			mainMenuViewRefreshRateNormal.Checked = false;
 			(sender as ToolStripMenuItem).Checked = true;
 		}
 
@@ -123,5 +124,20 @@ namespace TaskManager2
 			WindowState = FormWindowState.Normal;
 			notifyIcon.Visible = false;
 		}
+
+		private void mainMenuFileRun_Click(object sender, EventArgs e)
+		{
+			RunFileDlg(this.Handle, IntPtr.Zero, "C:\\Windows\\System32\\", "Run PD_311", "Task manager! Hello from PD_311", 0);
+		}
+		[DllImport("shell32.dll", EntryPoint = "#61", CharSet = CharSet.Unicode)]
+		public static extern int RunFileDlg
+			(
+				[In] IntPtr hwnd,
+				[In] IntPtr icon,
+				[In] string path,
+				[In] string title,
+				[In] string prompt,
+				[In] uint flags
+			);
 	}
 }

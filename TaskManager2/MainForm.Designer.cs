@@ -40,12 +40,13 @@
 			this.mainMenuViewHide = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.mainMenuViewSelectColumns = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuViewColumnsCPU = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.mainMenuViewRefresh = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainMenuViewRefreshRate = new System.Windows.Forms.ToolStripMenuItem();
-			this.MainMenuViewRefreshRateHigh = new System.Windows.Forms.ToolStripMenuItem();
-			this.MainMenuViewRefreshRateNormal = new System.Windows.Forms.ToolStripMenuItem();
-			this.MainMenuViewRefreshRateLow = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuViewRefreshRateHigh = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuViewRefreshRateNormal = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuViewRefreshRateLow = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStripMain = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabelProcessesCounter = new System.Windows.Forms.ToolStripStatusLabel();
 			this.tabControl = new System.Windows.Forms.TabControl();
@@ -87,18 +88,19 @@
 			// mainMenuFileRun
 			// 
 			this.mainMenuFileRun.Name = "mainMenuFileRun";
-			this.mainMenuFileRun.Size = new System.Drawing.Size(117, 26);
+			this.mainMenuFileRun.Size = new System.Drawing.Size(224, 26);
 			this.mainMenuFileRun.Text = "Run";
+			this.mainMenuFileRun.Click += new System.EventHandler(this.mainMenuFileRun_Click);
 			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(114, 6);
+			this.toolStripSeparator1.Size = new System.Drawing.Size(221, 6);
 			// 
 			// mainMenuFileExit
 			// 
 			this.mainMenuFileExit.Name = "mainMenuFileExit";
-			this.mainMenuFileExit.Size = new System.Drawing.Size(117, 26);
+			this.mainMenuFileExit.Size = new System.Drawing.Size(224, 26);
 			this.mainMenuFileExit.Text = "Exit";
 			// 
 			// viewToolStripMenuItem
@@ -137,9 +139,18 @@
 			// 
 			// mainMenuViewSelectColumns
 			// 
+			this.mainMenuViewSelectColumns.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainMenuViewColumnsCPU});
 			this.mainMenuViewSelectColumns.Name = "mainMenuViewSelectColumns";
 			this.mainMenuViewSelectColumns.Size = new System.Drawing.Size(237, 26);
 			this.mainMenuViewSelectColumns.Text = "Select columns";
+			// 
+			// mainMenuViewColumnsCPU
+			// 
+			this.mainMenuViewColumnsCPU.CheckOnClick = true;
+			this.mainMenuViewColumnsCPU.Name = "mainMenuViewColumnsCPU";
+			this.mainMenuViewColumnsCPU.Size = new System.Drawing.Size(119, 26);
+			this.mainMenuViewColumnsCPU.Text = "CPU";
 			// 
 			// toolStripSeparator3
 			// 
@@ -155,36 +166,36 @@
 			// mainMenuViewRefreshRate
 			// 
 			this.mainMenuViewRefreshRate.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MainMenuViewRefreshRateHigh,
-            this.MainMenuViewRefreshRateNormal,
-            this.MainMenuViewRefreshRateLow});
+            this.mainMenuViewRefreshRateHigh,
+            this.mainMenuViewRefreshRateNormal,
+            this.mainMenuViewRefreshRateLow});
 			this.mainMenuViewRefreshRate.Name = "mainMenuViewRefreshRate";
 			this.mainMenuViewRefreshRate.Size = new System.Drawing.Size(237, 26);
 			this.mainMenuViewRefreshRate.Text = "Refresh rate";
 			// 
-			// MainMenuViewRefreshRateHigh
+			// mainMenuViewRefreshRateHigh
 			// 
-			this.MainMenuViewRefreshRateHigh.CheckOnClick = true;
-			this.MainMenuViewRefreshRateHigh.Name = "MainMenuViewRefreshRateHigh";
-			this.MainMenuViewRefreshRateHigh.Size = new System.Drawing.Size(142, 26);
-			this.MainMenuViewRefreshRateHigh.Text = "High";
-			this.MainMenuViewRefreshRateHigh.Click += new System.EventHandler(this.MainMenuViewRefreshRateHigh_Click);
+			this.mainMenuViewRefreshRateHigh.CheckOnClick = true;
+			this.mainMenuViewRefreshRateHigh.Name = "mainMenuViewRefreshRateHigh";
+			this.mainMenuViewRefreshRateHigh.Size = new System.Drawing.Size(142, 26);
+			this.mainMenuViewRefreshRateHigh.Text = "High";
+			this.mainMenuViewRefreshRateHigh.Click += new System.EventHandler(this.MainMenuViewRefreshRateHigh_Click);
 			// 
-			// MainMenuViewRefreshRateNormal
+			// mainMenuViewRefreshRateNormal
 			// 
-			this.MainMenuViewRefreshRateNormal.CheckOnClick = true;
-			this.MainMenuViewRefreshRateNormal.Name = "MainMenuViewRefreshRateNormal";
-			this.MainMenuViewRefreshRateNormal.Size = new System.Drawing.Size(142, 26);
-			this.MainMenuViewRefreshRateNormal.Text = "Normal";
-			this.MainMenuViewRefreshRateNormal.Click += new System.EventHandler(this.MainMenuViewRefreshRateNormal_Click);
+			this.mainMenuViewRefreshRateNormal.CheckOnClick = true;
+			this.mainMenuViewRefreshRateNormal.Name = "mainMenuViewRefreshRateNormal";
+			this.mainMenuViewRefreshRateNormal.Size = new System.Drawing.Size(142, 26);
+			this.mainMenuViewRefreshRateNormal.Text = "Normal";
+			this.mainMenuViewRefreshRateNormal.Click += new System.EventHandler(this.MainMenuViewRefreshRateNormal_Click);
 			// 
-			// MainMenuViewRefreshRateLow
+			// mainMenuViewRefreshRateLow
 			// 
-			this.MainMenuViewRefreshRateLow.CheckOnClick = true;
-			this.MainMenuViewRefreshRateLow.Name = "MainMenuViewRefreshRateLow";
-			this.MainMenuViewRefreshRateLow.Size = new System.Drawing.Size(142, 26);
-			this.MainMenuViewRefreshRateLow.Text = "Low";
-			this.MainMenuViewRefreshRateLow.Click += new System.EventHandler(this.MainMenuViewRefreshRateLow_Click);
+			this.mainMenuViewRefreshRateLow.CheckOnClick = true;
+			this.mainMenuViewRefreshRateLow.Name = "mainMenuViewRefreshRateLow";
+			this.mainMenuViewRefreshRateLow.Size = new System.Drawing.Size(142, 26);
+			this.mainMenuViewRefreshRateLow.Text = "Low";
+			this.mainMenuViewRefreshRateLow.Click += new System.EventHandler(this.MainMenuViewRefreshRateLow_Click);
 			// 
 			// statusStripMain
 			// 
@@ -314,9 +325,9 @@
 		private System.Windows.Forms.ToolStripMenuItem mainMenuViewRefresh;
 		private System.Windows.Forms.ToolStripMenuItem mainMenuViewRefreshRate;
 		private System.Windows.Forms.StatusStrip statusStripMain;
-		private System.Windows.Forms.ToolStripMenuItem MainMenuViewRefreshRateHigh;
-		private System.Windows.Forms.ToolStripMenuItem MainMenuViewRefreshRateNormal;
-		private System.Windows.Forms.ToolStripMenuItem MainMenuViewRefreshRateLow;
+		private System.Windows.Forms.ToolStripMenuItem mainMenuViewRefreshRateHigh;
+		private System.Windows.Forms.ToolStripMenuItem mainMenuViewRefreshRateNormal;
+		private System.Windows.Forms.ToolStripMenuItem mainMenuViewRefreshRateLow;
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelProcessesCounter;
 		private System.Windows.Forms.TabControl tabControl;
 		private System.Windows.Forms.TabPage tabPageProcesses;
@@ -326,6 +337,7 @@
 		private System.Windows.Forms.ColumnHeader columnHeaderName;
 		private System.Windows.Forms.ColumnHeader columnHeaderPID;
 		private System.Windows.Forms.NotifyIcon notifyIcon;
+		private System.Windows.Forms.ToolStripMenuItem mainMenuViewColumnsCPU;
 	}
 }
 
