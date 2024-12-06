@@ -79,6 +79,7 @@ namespace TaskManager2
 			ListViewItem item = new ListViewItem();
 			item.Name = item.Text = p.ProcessName.ToString();
 			item.SubItems.Add(p.Id.ToString());
+			item.SubItems.Add((p.WorkingSet64 / (1024 * 1024.0)).ToString());
 			listViewProcesses.Items.Add(item);
 		}
 		void RefreshProcesses()
@@ -210,5 +211,10 @@ namespace TaskManager2
 				 [In] int cy,
 				 [In] uint uFlags
 			);
+
+		private void mainMenuViewColumnsRAM_CheckedChanged(object sender, EventArgs e)
+		{
+			listViewProcesses.Columns[2].Width = mainMenuViewColumnsRAM.Checked ? 90 : 0;
+		}
 	}
 }
