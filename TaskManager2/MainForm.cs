@@ -143,19 +143,58 @@ namespace TaskManager2
 				[In] string prompt,
 				[In] uint flags
 			);
-
+		[DllImport("shell32.dll")]
+		static extern IntPtr ShellExecute
+			(
+			IntPtr hwnd,
+			string lpOperation,
+			string lpFile,
+			string lpParameters,
+			string lpDirectory,
+			int nCmdShow
+			);
 		private void destroyToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			if (listViewProcesses.SelectedItems.Count > 0) 
+			if (listViewProcesses.SelectedItems.Count > 0)
 			{
 				DestroyProcess(Convert.ToInt32(listViewProcesses.SelectedItems[0].Name));
 			}
-			
+
 		}
 
 		private void contextMenuProcList_Opening(object sender, CancelEventArgs e)
 		{
 			toolStripMenuItemDestroy.Enabled = ToolStripMenuItemOpenFileLocation.Enabled = listViewProcesses.SelectedItems.Count > 0;
 		}
+
+		private void ToolStripMenuItemOpenFileLocation_Click(object sender, EventArgs e)
+		{
+			string filename = processes[Convert.ToInt32(listViewProcesses.SelectedItems[0].Name)].MainModule.FileName;
+			//filename = filename.Remove(filename.LastIndexOf("\\"));
+			//ShellExecute(this.Handle, "open", "explorer.exe", $"/select, \"{filename}\"", "", 4);
+			//MessageBox.Show(this, filename, "Location", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			//Process.Start("explorer", filename);
+			Process p = Process.Start(new ProcessStartInfo("explorer.exe", $"/select, \"{filename}\""));
+			//Process.GetCurrentProcess().
+			IntPtr hwnd = FindWindow(null, p.MainWindowTitle);
+			SetWindowPos(hwnd, -1, 0, 0, 0, 0, 1 | 2); 
+		}
+		[DllImport("user32.dll")]
+		static extern IntPtr FindWindow
+			(
+				string lpclassName,
+				string lpWindowName
+			);
+		[DllImport("user32.dll")]
+		static extern bool SetWindowPos
+			(
+				 [In] IntPtr hWnd,
+				 [In, Optional] int hWndInsertAfter,
+				 [In] int X,
+				 [In] int Y,
+				 [In] int cx,
+				 [In] int cy,
+				 [In] uint uFlags
+			);
 	}
 }

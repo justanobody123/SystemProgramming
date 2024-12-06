@@ -76,7 +76,7 @@
             this.viewToolStripMenuItem});
 			this.mainMenu.Location = new System.Drawing.Point(0, 0);
 			this.mainMenu.Name = "mainMenu";
-			this.mainMenu.Size = new System.Drawing.Size(800, 28);
+			this.mainMenu.Size = new System.Drawing.Size(800, 30);
 			this.mainMenu.TabIndex = 0;
 			this.mainMenu.Text = "menuStrip1";
 			// 
@@ -93,19 +93,19 @@
 			// mainMenuFileRun
 			// 
 			this.mainMenuFileRun.Name = "mainMenuFileRun";
-			this.mainMenuFileRun.Size = new System.Drawing.Size(224, 26);
+			this.mainMenuFileRun.Size = new System.Drawing.Size(117, 26);
 			this.mainMenuFileRun.Text = "Run";
 			this.mainMenuFileRun.Click += new System.EventHandler(this.mainMenuFileRun_Click);
 			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(221, 6);
+			this.toolStripSeparator1.Size = new System.Drawing.Size(114, 6);
 			// 
 			// mainMenuFileExit
 			// 
 			this.mainMenuFileExit.Name = "mainMenuFileExit";
-			this.mainMenuFileExit.Size = new System.Drawing.Size(224, 26);
+			this.mainMenuFileExit.Size = new System.Drawing.Size(117, 26);
 			this.mainMenuFileExit.Text = "Exit";
 			// 
 			// viewToolStripMenuItem
@@ -278,24 +278,25 @@
             this.toolStripSeparator4,
             this.toolStripMenuItemDestroy});
 			this.contextMenuProcList.Name = "contextMenuProcList";
-			this.contextMenuProcList.Size = new System.Drawing.Size(211, 86);
+			this.contextMenuProcList.Size = new System.Drawing.Size(198, 58);
 			this.contextMenuProcList.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuProcList_Opening);
 			// 
 			// ToolStripMenuItemOpenFileLocation
 			// 
 			this.ToolStripMenuItemOpenFileLocation.Name = "ToolStripMenuItemOpenFileLocation";
-			this.ToolStripMenuItemOpenFileLocation.Size = new System.Drawing.Size(210, 24);
+			this.ToolStripMenuItemOpenFileLocation.Size = new System.Drawing.Size(197, 24);
 			this.ToolStripMenuItemOpenFileLocation.Text = "Open file location";
+			this.ToolStripMenuItemOpenFileLocation.Click += new System.EventHandler(this.ToolStripMenuItemOpenFileLocation_Click);
 			// 
 			// toolStripSeparator4
 			// 
 			this.toolStripSeparator4.Name = "toolStripSeparator4";
-			this.toolStripSeparator4.Size = new System.Drawing.Size(207, 6);
+			this.toolStripSeparator4.Size = new System.Drawing.Size(194, 6);
 			// 
 			// toolStripMenuItemDestroy
 			// 
 			this.toolStripMenuItemDestroy.Name = "toolStripMenuItemDestroy";
-			this.toolStripMenuItemDestroy.Size = new System.Drawing.Size(210, 24);
+			this.toolStripMenuItemDestroy.Size = new System.Drawing.Size(197, 24);
 			this.toolStripMenuItemDestroy.Text = "Destroy";
 			this.toolStripMenuItemDestroy.Click += new System.EventHandler(this.destroyToolStripMenuItem_Click);
 			// 
