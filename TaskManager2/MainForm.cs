@@ -183,7 +183,7 @@ namespace TaskManager2
 
 		private void ToolStripMenuItemOpenFileLocation_Click(object sender, EventArgs e)
 		{
-			string filename = processes[Convert.ToInt32(listViewProcesses.SelectedItems[0].SubItems[0])].MainModule.FileName;
+			string filename = processes[Convert.ToInt32(listViewProcesses.SelectedItems[0].SubItems[1].Text)].MainModule.FileName;
 			//filename = filename.Remove(filename.LastIndexOf("\\"));
 			//ShellExecute(this.Handle, "open", "explorer.exe", $"/select, \"{filename}\"", "", 4);
 			//MessageBox.Show(this, filename, "Location", MessageBoxButtons.OK, MessageBoxIcon.Information);
