@@ -15,6 +15,7 @@ namespace TaskManager2
 	public partial class MainForm : Form
 	{
 		Dictionary<int, Process> processes;
+		ListViewColumnSorter lvColumnSorter;
 		public MainForm()
 		{
 			AllocConsole();
@@ -32,6 +33,12 @@ namespace TaskManager2
 					mainMenuViewRefreshRateLow.Checked = true;
 					break;
 			}
+			foreach (ColumnHeader ch in this.listViewProcesses.Columns)
+			{
+				ch.Width = -1;
+			}
+			lvColumnSorter = new ListViewColumnSorter();
+			listViewProcesses.ListViewItemSorter = lvColumnSorter;
 		}
 		[DllImport("kernel32")]
 		static extern bool AllocConsole();
@@ -87,6 +94,7 @@ namespace TaskManager2
 			processes = Process.GetProcesses().ToDictionary(i => i.Id);
 			RemoveOldProcesses();
 			AddNewProcesses();
+			
 		}
 		void DestroyProcess(int pId)
 		{
@@ -215,6 +223,27 @@ namespace TaskManager2
 		private void mainMenuViewColumnsRAM_CheckedChanged(object sender, EventArgs e)
 		{
 			listViewProcesses.Columns[2].Width = mainMenuViewColumnsRAM.Checked ? 90 : 0;
+		}
+
+		private void listViewProcesses_ColumnClick(object sender, ColumnClickEventArgs e)
+		{
+			if (e.Column == lvColumnSorter.SortColumn)
+			{
+				if (!(lvColumnSorter.Order == System.Data.SqlClient.SortOrder.Descending)) 
+				{
+					lvColumnSorter.Order = System.Data.SqlClient.SortOrder.Descending;
+				}
+				else
+				{
+					lvColumnSorter.Order = System.Data.SqlClient.SortOrder.Ascending;
+				}
+			}
+			else
+			{
+				lvColumnSorter.SortColumn = e.Column;
+				lvColumnSorter.Order = System.Data.SqlClient.SortOrder.Ascending;
+			}
+			this.listViewProcesses.Sort();
 		}
 	}
 }

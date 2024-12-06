@@ -249,6 +249,7 @@
 			// 
 			// listViewProcesses
 			// 
+			this.listViewProcesses.AllowColumnReorder = true;
 			this.listViewProcesses.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderName,
             this.columnHeaderPID,
@@ -265,6 +266,7 @@
 			this.listViewProcesses.TabIndex = 0;
 			this.listViewProcesses.UseCompatibleStateImageBehavior = false;
 			this.listViewProcesses.View = System.Windows.Forms.View.Details;
+			this.listViewProcesses.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewProcesses_ColumnClick);
 			// 
 			// columnHeaderPID
 			// 
