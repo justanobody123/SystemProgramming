@@ -17,6 +17,7 @@ namespace TaskManager2
 		Dictionary<int, Process> processes;
 		public MainForm()
 		{
+			AllocConsole();
 			InitializeComponent();
 			LoadProcesses();
 			switch (timer.Interval)
@@ -32,6 +33,8 @@ namespace TaskManager2
 					break;
 			}
 		}
+		[DllImport("kernel32")]
+		static extern bool AllocConsole();
 		void LoadProcesses()
 		{
 			processes = Process.GetProcesses().ToDictionary(i => i.Id);
@@ -44,7 +47,16 @@ namespace TaskManager2
 		{
 			foreach (KeyValuePair<int, Process> p in processes)
 			{
-				if (!listViewProcesses.Items.ContainsKey(p.Key.ToString()))
+				//if (!listViewProcesses.Items.ContainsKey(p.Key.ToString()))
+				bool isFound = false;
+				foreach(ListViewItem item in listViewProcesses.Items)
+				{
+					if ((item.SubItems[1].Text == p.Key.ToString()))
+					{
+						isFound = true;
+					}
+                }
+				if (!isFound)
 				{
 					AddProcessToListView(p.Value);
 				}
@@ -54,8 +66,10 @@ namespace TaskManager2
 		{
 			foreach (ListViewItem i in listViewProcesses.Items)
 			{
-				if (!processes.ContainsKey(Convert.ToInt32(i.SubItems[0].Text)))
+				Console.WriteLine("Итератор: " + Convert.ToInt32(i.SubItems[1].Text));
+				if (!processes.ContainsKey(Convert.ToInt32(i.SubItems[1].Text)))
 				{
+					Console.WriteLine("Ремув: " + Convert.ToInt32(i.SubItems[1].Text));
 					listViewProcesses.Items.Remove(i);
 				}
 			}
@@ -63,8 +77,8 @@ namespace TaskManager2
 		void AddProcessToListView(Process p)
 		{
 			ListViewItem item = new ListViewItem();
-			item.Name = item.Text = p.Id.ToString();
-			item.SubItems.Add(p.ProcessName);
+			item.Name = item.Text = p.ProcessName.ToString();
+			item.SubItems.Add(p.Id.ToString());
 			listViewProcesses.Items.Add(item);
 		}
 		void RefreshProcesses()
@@ -157,7 +171,7 @@ namespace TaskManager2
 		{
 			if (listViewProcesses.SelectedItems.Count > 0)
 			{
-				DestroyProcess(Convert.ToInt32(listViewProcesses.SelectedItems[0].Name));
+				DestroyProcess(Convert.ToInt32(listViewProcesses.SelectedItems[0].SubItems[1].Text));
 			}
 
 		}
@@ -169,7 +183,7 @@ namespace TaskManager2
 
 		private void ToolStripMenuItemOpenFileLocation_Click(object sender, EventArgs e)
 		{
-			string filename = processes[Convert.ToInt32(listViewProcesses.SelectedItems[0].Name)].MainModule.FileName;
+			string filename = processes[Convert.ToInt32(listViewProcesses.SelectedItems[0].SubItems[0])].MainModule.FileName;
 			//filename = filename.Remove(filename.LastIndexOf("\\"));
 			//ShellExecute(this.Handle, "open", "explorer.exe", $"/select, \"{filename}\"", "", 4);
 			//MessageBox.Show(this, filename, "Location", MessageBoxButtons.OK, MessageBoxIcon.Information);

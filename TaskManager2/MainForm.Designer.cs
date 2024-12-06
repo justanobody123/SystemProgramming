@@ -76,7 +76,7 @@
             this.viewToolStripMenuItem});
 			this.mainMenu.Location = new System.Drawing.Point(0, 0);
 			this.mainMenu.Name = "mainMenu";
-			this.mainMenu.Size = new System.Drawing.Size(800, 30);
+			this.mainMenu.Size = new System.Drawing.Size(800, 28);
 			this.mainMenu.TabIndex = 0;
 			this.mainMenu.Text = "menuStrip1";
 			// 
@@ -246,8 +246,8 @@
 			// listViewProcesses
 			// 
 			this.listViewProcesses.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderPID,
-            this.columnHeaderName});
+            this.columnHeaderName,
+            this.columnHeaderPID});
 			this.listViewProcesses.ContextMenuStrip = this.contextMenuProcList;
 			this.listViewProcesses.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.listViewProcesses.FullRowSelect = true;
