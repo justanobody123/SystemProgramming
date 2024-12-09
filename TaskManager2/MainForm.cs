@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Management;
+using System.Security.Principal;
 
 namespace TaskManager2
 {
@@ -57,13 +58,13 @@ namespace TaskManager2
 			{
 				//if (!listViewProcesses.Items.ContainsKey(p.Key.ToString()))
 				bool isFound = false;
-				foreach(ListViewItem item in listViewProcesses.Items)
+				foreach (ListViewItem item in listViewProcesses.Items)
 				{
 					if ((item.SubItems[1].Text == p.Key.ToString()))
 					{
 						isFound = true;
 					}
-                }
+				}
 				if (!isFound)
 				{
 					AddProcessToListView(p.Value);
@@ -90,7 +91,8 @@ namespace TaskManager2
 			item.SubItems.Add((p.WorkingSet64 / (1024 * 1024.0)).ToString());
 			try
 			{
-				item.SubItems.Add(processes[Convert.ToInt32(item.SubItems[1].Text)].MainModule.FileName);
+				item.SubItems.Add(p.MainModule.FileName);
+
 			}
 			catch (Win32Exception)
 			{
@@ -98,9 +100,9 @@ namespace TaskManager2
 			}
 			catch (InvalidOperationException)
 			{
-				
+
 			}
-			
+			item.SubItems.Add(GetProcessUser(p));
 
 			listViewProcesses.Items.Add(item);
 		}
@@ -121,7 +123,7 @@ namespace TaskManager2
 				{
 					item.SubItems[2].Text = (processes[Convert.ToInt32(item.SubItems[1].Text)].WorkingSet64 / (1024 * 1024.0)).ToString();
 				}
-				
+
 			}
 		}
 		void DestroyProcess(int pId)
@@ -229,7 +231,7 @@ namespace TaskManager2
 			Process p = Process.Start(new ProcessStartInfo("explorer.exe", $"/select, \"{filename}\""));
 			//Process.GetCurrentProcess().
 			IntPtr hwnd = FindWindow(null, p.MainWindowTitle);
-			SetWindowPos(hwnd, -1, 0, 0, 0, 0, 1 | 2); 
+			SetWindowPos(hwnd, -1, 0, 0, 0, 0, 1 | 2);
 		}
 		[DllImport("user32.dll")]
 		static extern IntPtr FindWindow
@@ -258,7 +260,7 @@ namespace TaskManager2
 		{
 			if (e.Column == lvColumnSorter.SortColumn)
 			{
-				if (!(lvColumnSorter.Order == System.Data.SqlClient.SortOrder.Descending)) 
+				if (!(lvColumnSorter.Order == System.Data.SqlClient.SortOrder.Descending))
 				{
 					lvColumnSorter.Order = System.Data.SqlClient.SortOrder.Descending;
 				}
@@ -273,6 +275,29 @@ namespace TaskManager2
 				lvColumnSorter.Order = System.Data.SqlClient.SortOrder.Ascending;
 			}
 			this.listViewProcesses.Sort();
+		}
+		[DllImport("advapi32.dll", SetLastError = true)]
+		static extern bool OpenProcessToken(IntPtr handle, uint DesiredAccess, out IntPtr Tokenhandle);
+		[DllImport("kernel32.dll", SetLastError = true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		static extern bool Closehandle(IntPtr hObject);
+		static string GetProcessUser(Process process)
+		{
+			IntPtr processHandle = IntPtr.Zero;
+			string userName = "N/A";
+			try
+			{
+				OpenProcessToken(process.Handle, 8, out processHandle);
+				using (WindowsIdentity wi = new WindowsIdentity(processHandle))
+				{
+					userName = wi.Name;
+				}
+			}
+			catch (Win32Exception)
+			{
+
+			}
+			return userName;
 		}
 	}
 }
