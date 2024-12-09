@@ -35,12 +35,42 @@ namespace TaskManager2
 					mainMenuViewRefreshRateLow.Checked = true;
 					break;
 			}
+			AdjustColumnsWidth();
+			lvColumnSorter = new ListViewColumnSorter();
+			listViewProcesses.ListViewItemSorter = lvColumnSorter;
+			//SetColumns();
+		}
+		void SetColumns()
+		{
+			listViewProcesses.Columns.Clear();
+			listViewProcesses.Columns.Add("Name");
+			if (mainMenuViewColumnsPID.Checked)
+			{
+				listViewProcesses.Columns.Add("PID");
+			}
+			if (mainMenuViewColumnsOwner.Checked) 
+			{
+				listViewProcesses.Columns.Add("Owner");
+			}
+			if (mainMenuViewColumnsFilePath.Checked)
+			{
+				listViewProcesses.Columns.Add("File path");
+			}
+        }
+		void AdjustColumnsWidth()
+		{
 			foreach (ColumnHeader ch in this.listViewProcesses.Columns)
 			{
 				ch.Width = -1;
 			}
-			lvColumnSorter = new ListViewColumnSorter();
-			listViewProcesses.ListViewItemSorter = lvColumnSorter;
+		}
+		int GetColumnIndex(string name)
+		{
+			for (int i = 0; i < listViewProcesses.Columns.Count; i ++)
+			{
+				if (name == listViewProcesses.Columns[i].Text) return i;
+			}
+			return -1;
 		}
 		[DllImport("kernel32")]
 		static extern bool AllocConsole();
@@ -75,10 +105,10 @@ namespace TaskManager2
 		{
 			foreach (ListViewItem i in listViewProcesses.Items)
 			{
-				Console.WriteLine("Итератор: " + Convert.ToInt32(i.SubItems[1].Text));
+				//Console.WriteLine("Итератор: " + Convert.ToInt32(i.SubItems[1].Text));
 				if (!processes.ContainsKey(Convert.ToInt32(i.SubItems[1].Text)))
 				{
-					Console.WriteLine("Ремув: " + Convert.ToInt32(i.SubItems[1].Text));
+					//Console.WriteLine("Ремув: " + Convert.ToInt32(i.SubItems[1].Text));
 					listViewProcesses.Items.Remove(i);
 				}
 			}
@@ -88,7 +118,7 @@ namespace TaskManager2
 			ListViewItem item = new ListViewItem();
 			item.Name = item.Text = p.ProcessName.ToString();
 			item.SubItems.Add(p.Id.ToString());
-			item.SubItems.Add((p.WorkingSet64 / (1024 * 1024.0)).ToString());
+			//item.SubItems.Add((p.WorkingSet64 / (1024 * 1024.0)).ToString());
 			try
 			{
 				item.SubItems.Add(p.MainModule.FileName);
@@ -112,7 +142,7 @@ namespace TaskManager2
 			RemoveOldProcesses();
 			AddNewProcesses();
 			//Тут надо бы наапдейтить память.
-			UpdateResourcesConsumptionInfo();
+			//UpdateResourcesConsumptionInfo();
 		}
 		//Возможно, сюда добавится не только память, но и проц, диск и что там еще надо.
 		void UpdateResourcesConsumptionInfo()
@@ -134,6 +164,7 @@ namespace TaskManager2
 		{
 			RefreshProcesses();
 			toolStripStatusLabelProcessesCounter.Text = $"Processes count: {listViewProcesses.Items.Count.ToString()}; Refresh speed: {timer.Interval}";
+			//SetColumns();
 		}
 
 		private void mainMenuViewTopmost_CheckedChanged(object sender, EventArgs e)
@@ -297,6 +328,8 @@ namespace TaskManager2
 			{
 
 			}
+			catch(InvalidOperationException) 
+			{ }
 			return userName;
 		}
 	}
