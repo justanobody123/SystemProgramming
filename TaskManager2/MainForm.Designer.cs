@@ -40,8 +40,10 @@
 			this.mainMenuViewHide = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.mainMenuViewSelectColumns = new System.Windows.Forms.ToolStripMenuItem();
-			this.mainMenuViewColumnsRAM = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuViewColumnsPID = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuViewColumnsOwner = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainMenuViewColumnsFilePath = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenuViewColumnsRAM = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.mainMenuViewRefresh = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainMenuViewRefreshRate = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,8 +68,6 @@
 			this.tabPagePerformance = new System.Windows.Forms.TabPage();
 			this.timer = new System.Windows.Forms.Timer(this.components);
 			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-			this.mainMenuViewColumnsPID = new System.Windows.Forms.ToolStripMenuItem();
-			this.mainMenuViewColumnsOwner = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainMenu.SuspendLayout();
 			this.statusStripMain.SuspendLayout();
 			this.tabControl.SuspendLayout();
@@ -160,24 +160,40 @@
 			this.mainMenuViewSelectColumns.Size = new System.Drawing.Size(237, 26);
 			this.mainMenuViewSelectColumns.Text = "Select columns";
 			// 
-			// mainMenuViewColumnsRAM
+			// mainMenuViewColumnsPID
 			// 
-			this.mainMenuViewColumnsRAM.Checked = true;
-			this.mainMenuViewColumnsRAM.CheckOnClick = true;
-			this.mainMenuViewColumnsRAM.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.mainMenuViewColumnsRAM.Name = "mainMenuViewColumnsRAM";
-			this.mainMenuViewColumnsRAM.Size = new System.Drawing.Size(224, 26);
-			this.mainMenuViewColumnsRAM.Text = "RAM";
-			this.mainMenuViewColumnsRAM.CheckedChanged += new System.EventHandler(this.mainMenuViewColumnsRAM_CheckedChanged);
+			this.mainMenuViewColumnsPID.CheckOnClick = true;
+			this.mainMenuViewColumnsPID.Name = "mainMenuViewColumnsPID";
+			this.mainMenuViewColumnsPID.Size = new System.Drawing.Size(224, 26);
+			this.mainMenuViewColumnsPID.Text = "PID";
+			this.mainMenuViewColumnsPID.CheckedChanged += new System.EventHandler(this.mainMenuViewColumns_CheckedChanged);
+			this.mainMenuViewColumnsPID.Click += new System.EventHandler(this.mainMenuViewColumns_Click);
+			// 
+			// mainMenuViewColumnsOwner
+			// 
+			this.mainMenuViewColumnsOwner.CheckOnClick = true;
+			this.mainMenuViewColumnsOwner.Name = "mainMenuViewColumnsOwner";
+			this.mainMenuViewColumnsOwner.Size = new System.Drawing.Size(224, 26);
+			this.mainMenuViewColumnsOwner.Text = "Owner";
+			this.mainMenuViewColumnsOwner.CheckedChanged += new System.EventHandler(this.mainMenuViewColumns_CheckedChanged);
+			this.mainMenuViewColumnsOwner.Click += new System.EventHandler(this.mainMenuViewColumns_Click);
 			// 
 			// mainMenuViewColumnsFilePath
 			// 
-			this.mainMenuViewColumnsFilePath.Checked = true;
 			this.mainMenuViewColumnsFilePath.CheckOnClick = true;
-			this.mainMenuViewColumnsFilePath.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.mainMenuViewColumnsFilePath.Name = "mainMenuViewColumnsFilePath";
 			this.mainMenuViewColumnsFilePath.Size = new System.Drawing.Size(224, 26);
 			this.mainMenuViewColumnsFilePath.Text = "Path";
+			this.mainMenuViewColumnsFilePath.CheckedChanged += new System.EventHandler(this.mainMenuViewColumns_CheckedChanged);
+			this.mainMenuViewColumnsFilePath.Click += new System.EventHandler(this.mainMenuViewColumns_Click);
+			// 
+			// mainMenuViewColumnsRAM
+			// 
+			this.mainMenuViewColumnsRAM.CheckOnClick = true;
+			this.mainMenuViewColumnsRAM.Name = "mainMenuViewColumnsRAM";
+			this.mainMenuViewColumnsRAM.Size = new System.Drawing.Size(224, 26);
+			this.mainMenuViewColumnsRAM.Text = "RAM";
+			this.mainMenuViewColumnsRAM.CheckedChanged += new System.EventHandler(this.mainMenuViewColumns_CheckedChanged);
 			// 
 			// toolStripSeparator3
 			// 
@@ -204,7 +220,7 @@
 			// 
 			this.mainMenuViewRefreshRateHigh.CheckOnClick = true;
 			this.mainMenuViewRefreshRateHigh.Name = "mainMenuViewRefreshRateHigh";
-			this.mainMenuViewRefreshRateHigh.Size = new System.Drawing.Size(142, 26);
+			this.mainMenuViewRefreshRateHigh.Size = new System.Drawing.Size(224, 26);
 			this.mainMenuViewRefreshRateHigh.Text = "High";
 			this.mainMenuViewRefreshRateHigh.Click += new System.EventHandler(this.MainMenuViewRefreshRateHigh_Click);
 			// 
@@ -212,7 +228,7 @@
 			// 
 			this.mainMenuViewRefreshRateNormal.CheckOnClick = true;
 			this.mainMenuViewRefreshRateNormal.Name = "mainMenuViewRefreshRateNormal";
-			this.mainMenuViewRefreshRateNormal.Size = new System.Drawing.Size(142, 26);
+			this.mainMenuViewRefreshRateNormal.Size = new System.Drawing.Size(224, 26);
 			this.mainMenuViewRefreshRateNormal.Text = "Normal";
 			this.mainMenuViewRefreshRateNormal.Click += new System.EventHandler(this.MainMenuViewRefreshRateNormal_Click);
 			// 
@@ -220,7 +236,7 @@
 			// 
 			this.mainMenuViewRefreshRateLow.CheckOnClick = true;
 			this.mainMenuViewRefreshRateLow.Name = "mainMenuViewRefreshRateLow";
-			this.mainMenuViewRefreshRateLow.Size = new System.Drawing.Size(142, 26);
+			this.mainMenuViewRefreshRateLow.Size = new System.Drawing.Size(224, 26);
 			this.mainMenuViewRefreshRateLow.Text = "Low";
 			this.mainMenuViewRefreshRateLow.Click += new System.EventHandler(this.MainMenuViewRefreshRateLow_Click);
 			// 
@@ -305,7 +321,7 @@
 			// 
 			// columnHeaderFilePath
 			// 
-			this.columnHeaderFilePath.Text = "File path";
+			this.columnHeaderFilePath.Text = "Path";
 			// 
 			// columnHeaderUser
 			// 
@@ -366,24 +382,6 @@
 			this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
 			this.notifyIcon.Text = "notifyIcon";
 			this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
-			// 
-			// mainMenuViewColumnsPID
-			// 
-			this.mainMenuViewColumnsPID.Checked = true;
-			this.mainMenuViewColumnsPID.CheckOnClick = true;
-			this.mainMenuViewColumnsPID.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.mainMenuViewColumnsPID.Name = "mainMenuViewColumnsPID";
-			this.mainMenuViewColumnsPID.Size = new System.Drawing.Size(224, 26);
-			this.mainMenuViewColumnsPID.Text = "PID";
-			// 
-			// mainMenuViewColumnsOwner
-			// 
-			this.mainMenuViewColumnsOwner.Checked = true;
-			this.mainMenuViewColumnsOwner.CheckOnClick = true;
-			this.mainMenuViewColumnsOwner.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.mainMenuViewColumnsOwner.Name = "mainMenuViewColumnsOwner";
-			this.mainMenuViewColumnsOwner.Size = new System.Drawing.Size(224, 26);
-			this.mainMenuViewColumnsOwner.Text = "Owner";
 			// 
 			// MainForm
 			// 

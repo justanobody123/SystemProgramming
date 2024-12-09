@@ -18,6 +18,7 @@ namespace TaskManager2
 	{
 		Dictionary<int, Process> processes;
 		ListViewColumnSorter lvColumnSorter;
+		Dictionary<string, bool> selectedColumns = new Dictionary<string, bool>();
 		public MainForm()
 		{
 			AllocConsole();
@@ -35,28 +36,53 @@ namespace TaskManager2
 					mainMenuViewRefreshRateLow.Checked = true;
 					break;
 			}
+			InitSelectedColumns();
 			AdjustColumnsWidth();
 			lvColumnSorter = new ListViewColumnSorter();
 			listViewProcesses.ListViewItemSorter = lvColumnSorter;
-			//SetColumns();
+			AdjustColumnsWidth();
+
 		}
-		void SetColumns()
+		void InitSelectedColumns()
 		{
-			listViewProcesses.Columns.Clear();
-			listViewProcesses.Columns.Add("Name");
-			if (mainMenuViewColumnsPID.Checked)
+			foreach(ToolStripMenuItem i in mainMenuViewSelectColumns.DropDownItems)
 			{
-				listViewProcesses.Columns.Add("PID");
+				selectedColumns[i.Text] = i.Checked;
 			}
-			if (mainMenuViewColumnsOwner.Checked) 
+			PrintSelectedColumns();
+		}
+		void SetColumnsVisibility()
+		{
+			AdjustColumnsWidth();
+			for (int i = 1; i < selectedColumns.Count; i++) 
 			{
-				listViewProcesses.Columns.Add("Owner");
+				if (!selectedColumns[listViewProcesses.Columns[i].Text])
+				{
+					listViewProcesses.Columns[i].Width = 0;
+				}
 			}
-			if (mainMenuViewColumnsFilePath.Checked)
-			{
-				listViewProcesses.Columns.Add("File path");
-			}
-        }
+			//foreach(ColumnHeader ch in listViewProcesses.Columns)
+			//{
+				
+			//}
+		}
+		//void SetColumns()
+		//{
+		//	listViewProcesses.Columns.Clear();
+		//	listViewProcesses.Columns.Add("Name");
+		//	if (mainMenuViewColumnsPID.Checked)
+		//	{
+		//		listViewProcesses.Columns.Add("PID");
+		//	}
+		//	if (mainMenuViewColumnsOwner.Checked)
+		//	{
+		//		listViewProcesses.Columns.Add("Owner");
+		//	}
+		//	if (mainMenuViewColumnsFilePath.Checked)
+		//	{
+		//		listViewProcesses.Columns.Add("File path");
+		//	}
+		//}
 		void AdjustColumnsWidth()
 		{
 			foreach (ColumnHeader ch in this.listViewProcesses.Columns)
@@ -66,7 +92,7 @@ namespace TaskManager2
 		}
 		int GetColumnIndex(string name)
 		{
-			for (int i = 0; i < listViewProcesses.Columns.Count; i ++)
+			for (int i = 0; i < listViewProcesses.Columns.Count; i++)
 			{
 				if (name == listViewProcesses.Columns[i].Text) return i;
 			}
@@ -328,9 +354,40 @@ namespace TaskManager2
 			{
 
 			}
-			catch(InvalidOperationException) 
+			catch (InvalidOperationException)
 			{ }
 			return userName;
 		}
+
+		private void mainMenuViewColumns_CheckedChanged(object sender, EventArgs e)
+		{
+			//SetColumns();
+		}
+		void PrintSelectedColumns()
+		{
+			foreach (KeyValuePair<string, bool> p in selectedColumns)
+			{
+				Console.WriteLine(p.Key + "\t" + p.Value);
+			}
+			Console.WriteLine("\n--------------------------------------------\n");
+		}
+		private void mainMenuViewColumns_Click(object sender, EventArgs e)
+		{
+			selectedColumns[(sender as ToolStripMenuItem).Text] = (sender as ToolStripMenuItem).Checked;
+			PrintSelectedColumns();
+			SetColumnsVisibility();
+		}
+
+		//private void mainMenuViewColumnsOwner_Click(object sender, EventArgs e)
+		//{
+		//	selectedColumns[(sender as ToolStripMenuItem).Text] = (sender as ToolStripMenuItem).Checked;
+		//	PrintSelectedColumns();
+		//}
+
+		//private void mainMenuViewColumnsFilePath_Click(object sender, EventArgs e)
+		//{
+		//	selectedColumns[(sender as ToolStripMenuItem).Text] = (sender as ToolStripMenuItem).Checked;
+		//	PrintSelectedColumns();
+		//}
 	}
 }
