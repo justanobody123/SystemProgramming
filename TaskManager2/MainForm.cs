@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Management;
 
 namespace TaskManager2
 {
@@ -87,6 +88,20 @@ namespace TaskManager2
 			item.Name = item.Text = p.ProcessName.ToString();
 			item.SubItems.Add(p.Id.ToString());
 			item.SubItems.Add((p.WorkingSet64 / (1024 * 1024.0)).ToString());
+			try
+			{
+				item.SubItems.Add(processes[Convert.ToInt32(item.SubItems[1].Text)].MainModule.FileName);
+			}
+			catch (Win32Exception)
+			{
+				item.SubItems.Add("Access denied");
+			}
+			catch (InvalidOperationException)
+			{
+				
+			}
+			
+
 			listViewProcesses.Items.Add(item);
 		}
 		void RefreshProcesses()
@@ -94,7 +109,20 @@ namespace TaskManager2
 			processes = Process.GetProcesses().ToDictionary(i => i.Id);
 			RemoveOldProcesses();
 			AddNewProcesses();
-			
+			//Тут надо бы наапдейтить память.
+			UpdateResourcesConsumptionInfo();
+		}
+		//Возможно, сюда добавится не только память, но и проц, диск и что там еще надо.
+		void UpdateResourcesConsumptionInfo()
+		{
+			foreach (ListViewItem item in listViewProcesses.Items)
+			{
+				if (item.SubItems[2].Text != (processes[Convert.ToInt32(item.SubItems[1].Text)].WorkingSet64 / (1024 * 1024.0)).ToString())
+				{
+					item.SubItems[2].Text = (processes[Convert.ToInt32(item.SubItems[1].Text)].WorkingSet64 / (1024 * 1024.0)).ToString();
+				}
+				
+			}
 		}
 		void DestroyProcess(int pId)
 		{
@@ -193,6 +221,7 @@ namespace TaskManager2
 		private void ToolStripMenuItemOpenFileLocation_Click(object sender, EventArgs e)
 		{
 			string filename = processes[Convert.ToInt32(listViewProcesses.SelectedItems[0].SubItems[1].Text)].MainModule.FileName;
+			Console.WriteLine(filename);
 			//filename = filename.Remove(filename.LastIndexOf("\\"));
 			//ShellExecute(this.Handle, "open", "explorer.exe", $"/select, \"{filename}\"", "", 4);
 			//MessageBox.Show(this, filename, "Location", MessageBoxButtons.OK, MessageBoxIcon.Information);
