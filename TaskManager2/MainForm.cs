@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Management;
 using System.Security.Principal;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TaskManager2
 {
@@ -59,6 +60,12 @@ namespace TaskManager2
 				if (!selectedColumns[listViewProcesses.Columns[i].Text])
 				{
 					listViewProcesses.Columns[i].Width = 0;
+					//listViewProcesses.Columns[i].DisplayIndex = 0;
+					//listViewProcesses.Columns[i].
+				}
+				else
+				{
+
 				}
 			}
 			//foreach(ColumnHeader ch in listViewProcesses.Columns)
@@ -308,11 +315,6 @@ namespace TaskManager2
 				 [In] uint uFlags
 			);
 
-		private void mainMenuViewColumnsRAM_CheckedChanged(object sender, EventArgs e)
-		{
-			listViewProcesses.Columns[2].Width = mainMenuViewColumnsRAM.Checked ? 90 : 0;
-		}
-
 		private void listViewProcesses_ColumnClick(object sender, ColumnClickEventArgs e)
 		{
 			if (e.Column == lvColumnSorter.SortColumn)
@@ -376,6 +378,16 @@ namespace TaskManager2
 			selectedColumns[(sender as ToolStripMenuItem).Text] = (sender as ToolStripMenuItem).Checked;
 			PrintSelectedColumns();
 			SetColumnsVisibility();
+		}
+
+		private void listViewProcesses_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
+		{
+            //Так как в словаре не все колонки лист вью, надо проверять, есть ли в нем соответствующий ключ, иначе можно упасть при попытке достать несуществующий объект.
+            if (selectedColumns.ContainsKey((sender as System.Windows.Forms.ListView).Columns[e.ColumnIndex].Text) && !selectedColumns[(sender as System.Windows.Forms.ListView).Columns[e.ColumnIndex].Text])
+			{
+				e.Cancel = true;
+				e.NewWidth = listViewProcesses.Columns[e.ColumnIndex].Width;
+			}
 		}
 
 		//private void mainMenuViewColumnsOwner_Click(object sender, EventArgs e)

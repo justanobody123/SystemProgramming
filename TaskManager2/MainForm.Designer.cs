@@ -43,7 +43,6 @@
 			this.mainMenuViewColumnsPID = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainMenuViewColumnsOwner = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainMenuViewColumnsFilePath = new System.Windows.Forms.ToolStripMenuItem();
-			this.mainMenuViewColumnsRAM = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.mainMenuViewRefresh = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainMenuViewRefreshRate = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,10 +56,8 @@
 			this.listViewProcesses = new System.Windows.Forms.ListView();
 			this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeaderPID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.columnHeaderRAM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeaderFilePath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.columnHeaderUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.columnHeaderCpuUsage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.contextMenuProcList = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.ToolStripMenuItemOpenFileLocation = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -154,15 +151,16 @@
 			this.mainMenuViewSelectColumns.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mainMenuViewColumnsPID,
             this.mainMenuViewColumnsOwner,
-            this.mainMenuViewColumnsFilePath,
-            this.mainMenuViewColumnsRAM});
+            this.mainMenuViewColumnsFilePath});
 			this.mainMenuViewSelectColumns.Name = "mainMenuViewSelectColumns";
 			this.mainMenuViewSelectColumns.Size = new System.Drawing.Size(237, 26);
 			this.mainMenuViewSelectColumns.Text = "Select columns";
 			// 
 			// mainMenuViewColumnsPID
 			// 
+			this.mainMenuViewColumnsPID.Checked = true;
 			this.mainMenuViewColumnsPID.CheckOnClick = true;
+			this.mainMenuViewColumnsPID.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.mainMenuViewColumnsPID.Name = "mainMenuViewColumnsPID";
 			this.mainMenuViewColumnsPID.Size = new System.Drawing.Size(224, 26);
 			this.mainMenuViewColumnsPID.Text = "PID";
@@ -171,7 +169,9 @@
 			// 
 			// mainMenuViewColumnsOwner
 			// 
+			this.mainMenuViewColumnsOwner.Checked = true;
 			this.mainMenuViewColumnsOwner.CheckOnClick = true;
+			this.mainMenuViewColumnsOwner.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.mainMenuViewColumnsOwner.Name = "mainMenuViewColumnsOwner";
 			this.mainMenuViewColumnsOwner.Size = new System.Drawing.Size(224, 26);
 			this.mainMenuViewColumnsOwner.Text = "Owner";
@@ -180,20 +180,14 @@
 			// 
 			// mainMenuViewColumnsFilePath
 			// 
+			this.mainMenuViewColumnsFilePath.Checked = true;
 			this.mainMenuViewColumnsFilePath.CheckOnClick = true;
+			this.mainMenuViewColumnsFilePath.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.mainMenuViewColumnsFilePath.Name = "mainMenuViewColumnsFilePath";
 			this.mainMenuViewColumnsFilePath.Size = new System.Drawing.Size(224, 26);
 			this.mainMenuViewColumnsFilePath.Text = "Path";
 			this.mainMenuViewColumnsFilePath.CheckedChanged += new System.EventHandler(this.mainMenuViewColumns_CheckedChanged);
 			this.mainMenuViewColumnsFilePath.Click += new System.EventHandler(this.mainMenuViewColumns_Click);
-			// 
-			// mainMenuViewColumnsRAM
-			// 
-			this.mainMenuViewColumnsRAM.CheckOnClick = true;
-			this.mainMenuViewColumnsRAM.Name = "mainMenuViewColumnsRAM";
-			this.mainMenuViewColumnsRAM.Size = new System.Drawing.Size(224, 26);
-			this.mainMenuViewColumnsRAM.Text = "RAM";
-			this.mainMenuViewColumnsRAM.CheckedChanged += new System.EventHandler(this.mainMenuViewColumns_CheckedChanged);
 			// 
 			// toolStripSeparator3
 			// 
@@ -220,7 +214,7 @@
 			// 
 			this.mainMenuViewRefreshRateHigh.CheckOnClick = true;
 			this.mainMenuViewRefreshRateHigh.Name = "mainMenuViewRefreshRateHigh";
-			this.mainMenuViewRefreshRateHigh.Size = new System.Drawing.Size(224, 26);
+			this.mainMenuViewRefreshRateHigh.Size = new System.Drawing.Size(142, 26);
 			this.mainMenuViewRefreshRateHigh.Text = "High";
 			this.mainMenuViewRefreshRateHigh.Click += new System.EventHandler(this.MainMenuViewRefreshRateHigh_Click);
 			// 
@@ -228,7 +222,7 @@
 			// 
 			this.mainMenuViewRefreshRateNormal.CheckOnClick = true;
 			this.mainMenuViewRefreshRateNormal.Name = "mainMenuViewRefreshRateNormal";
-			this.mainMenuViewRefreshRateNormal.Size = new System.Drawing.Size(224, 26);
+			this.mainMenuViewRefreshRateNormal.Size = new System.Drawing.Size(142, 26);
 			this.mainMenuViewRefreshRateNormal.Text = "Normal";
 			this.mainMenuViewRefreshRateNormal.Click += new System.EventHandler(this.MainMenuViewRefreshRateNormal_Click);
 			// 
@@ -236,7 +230,7 @@
 			// 
 			this.mainMenuViewRefreshRateLow.CheckOnClick = true;
 			this.mainMenuViewRefreshRateLow.Name = "mainMenuViewRefreshRateLow";
-			this.mainMenuViewRefreshRateLow.Size = new System.Drawing.Size(224, 26);
+			this.mainMenuViewRefreshRateLow.Size = new System.Drawing.Size(142, 26);
 			this.mainMenuViewRefreshRateLow.Text = "Low";
 			this.mainMenuViewRefreshRateLow.Click += new System.EventHandler(this.MainMenuViewRefreshRateLow_Click);
 			// 
@@ -287,10 +281,8 @@
 			this.listViewProcesses.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderName,
             this.columnHeaderPID,
-            this.columnHeaderRAM,
             this.columnHeaderFilePath,
-            this.columnHeaderUser,
-            this.columnHeaderCpuUsage});
+            this.columnHeaderUser});
 			this.listViewProcesses.ContextMenuStrip = this.contextMenuProcList;
 			this.listViewProcesses.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.listViewProcesses.FullRowSelect = true;
@@ -304,6 +296,7 @@
 			this.listViewProcesses.UseCompatibleStateImageBehavior = false;
 			this.listViewProcesses.View = System.Windows.Forms.View.Details;
 			this.listViewProcesses.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewProcesses_ColumnClick);
+			this.listViewProcesses.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.listViewProcesses_ColumnWidthChanging);
 			// 
 			// columnHeaderName
 			// 
@@ -314,11 +307,6 @@
 			// 
 			this.columnHeaderPID.Text = "PID";
 			// 
-			// columnHeaderRAM
-			// 
-			this.columnHeaderRAM.Text = "RAM";
-			this.columnHeaderRAM.Width = 90;
-			// 
 			// columnHeaderFilePath
 			// 
 			this.columnHeaderFilePath.Text = "Path";
@@ -326,10 +314,6 @@
 			// columnHeaderUser
 			// 
 			this.columnHeaderUser.Text = "User";
-			// 
-			// columnHeaderCpuUsage
-			// 
-			this.columnHeaderCpuUsage.Text = "ColumnHeaderCpuUsage";
 			// 
 			// contextMenuProcList
 			// 
@@ -435,16 +419,13 @@
 		private System.Windows.Forms.ColumnHeader columnHeaderName;
 		private System.Windows.Forms.ColumnHeader columnHeaderPID;
 		private System.Windows.Forms.NotifyIcon notifyIcon;
-		private System.Windows.Forms.ToolStripMenuItem mainMenuViewColumnsRAM;
 		private System.Windows.Forms.ContextMenuStrip contextMenuProcList;
 		private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemOpenFileLocation;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDestroy;
-		private System.Windows.Forms.ColumnHeader columnHeaderRAM;
 		private System.Windows.Forms.ToolStripMenuItem mainMenuViewColumnsFilePath;
 		private System.Windows.Forms.ColumnHeader columnHeaderFilePath;
 		private System.Windows.Forms.ColumnHeader columnHeaderUser;
-		private System.Windows.Forms.ColumnHeader columnHeaderCpuUsage;
 		private System.Windows.Forms.ToolStripMenuItem mainMenuViewColumnsPID;
 		private System.Windows.Forms.ToolStripMenuItem mainMenuViewColumnsOwner;
 	}
